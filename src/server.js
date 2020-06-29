@@ -16,4 +16,11 @@ app.get("/", (req, res) => {
   }
 });
 
+app.post("/appointments", (req, res) => {
+  const dateTime = req.body.queryResult.parameters["date-time"].date_time;
+  db.get("appointments").push({ date_time: dateTime }).write();
+  const fulfillmentMessages = req.body.queryResult.fulfillmentMessages;
+  res.json({ fulfillmentMessages });
+});
+
 module.exports = app;
